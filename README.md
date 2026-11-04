@@ -99,14 +99,37 @@ Without the module, there is a manual workaround: **turn Wi-Fi off, turn the hot
 | Wi-Fi client with `a23wifinoscc` | Connected on 5220 MHz, no packet loss to `1.1.1.1` |
 | Release zips | Installed through `magisk --install-module`; the resulting script and config are byte-identical to the ones tested above |
 
+## Keep the hotspot on 2.4 GHz
+
+**These modules do not make a 5 GHz hotspot reliable.** With both installed and the Wi-Fi client connected on 5220 MHz, setting **Speed and compatibility** to 5 GHz gave:
+
+| Band setting | Successful starts | Frequency when it started |
+|---|---|---|
+| 2.4 GHz | 3 out of 3 in a row | 2442 to 2462 MHz |
+| 5 GHz | **2 out of 10** | 5765 or 5825 MHz |
+
+Failed 5 GHz starts stop right away, and the hotspot stays off:
+
+```
+hostapd: Failed to set beacon parameters
+hostapd: Interface initialization failed
+hostapd: wlan01: interface state HT_SCAN->DISABLED
+SoftApManager[wlan01]: hostapd failure, stop and report failure
+```
+
+I did not find the cause, and did not try these starts with Wi-Fi off.
+
+When a 5 GHz start did work, the hotspot stayed on for over 8 minutes on 5765 MHz with a device connected and no 60-second cut. One informal speed test on it gave about 50 Mbps down and 40 Mbps up.
+
+**A lead on the 60-second cut, not a proof:** the phone's regulatory table marks 5220 MHz as `no IR`, so it may not start a network there on its own. 5765 and 5825 MHz do not have that flag, but they are limited to 14 dBm, against 23 dBm for 5220 MHz.
+
 ## What has not been tested
 
 - **Other phones:** only one SM-A236B. The ROM itself does not support the other variants (M, E).
 - **Other builds:** only the `20260316` build.
 - **Mobile data as the internet source:** there was no SIM in the phone. With Wi-Fi off the access point stays up, but sharing mobile data was not tested.
-- **Long sessions:** the longest run with both modules is 7 min 20.
-- **Speed:** the hotspot and the Wi-Fi client now stay on different bands. Throughput was not measured.
-- **The hotspot's 5 GHz band setting.**
+- **Long sessions:** the longest run with both modules on 2.4 GHz is 7 min 20.
+- **Speed on 2.4 GHz:** throughput was not properly measured.
 
 ## Rooting this ROM with Magisk
 
