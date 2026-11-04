@@ -1,0 +1,6 @@
+id=a23hotspotfix
+name=A23 Hotspot Fix
+version=v1.0.0
+versionCode=1
+author=Anezium
+description=Renames the SoftAP interface to wlan01 so the Wi-Fi HAL stops crashing on swlan0.

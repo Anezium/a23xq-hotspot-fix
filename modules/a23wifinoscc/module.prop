@@ -1,0 +1,6 @@
+id=a23wifinoscc
+name=A23 Hotspot No Forced SCC
+version=v1.0.0
+versionCode=1
+author=Anezium
+description=Sets gWlanMccToSccSwitchMode=0 so the hotspot does not move onto the Wi-Fi client's 5 GHz channel.
